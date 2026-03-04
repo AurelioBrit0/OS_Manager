@@ -1,0 +1,52 @@
+<div class="container-novo-produto">
+    <div class="row">
+        <div class="offset-md-11">
+
+            <p-button (click)="showDialog()" label="+Novo Produto" />
+        </div>
+    </div>
+</div>
+
+<div class="simple-card">
+
+
+    <p-dialog header="Novo Produto" [modal]="true" [(visible)]="visible" [style]="{ width: '35rem' }">
+
+        <div class="flex items-center gap-4 mb-4">
+            <label for="username" class="font-semibold w-24">Nome</label>
+            <input pInputText id="nome" class="flex-auto" autocomplete="off" [style]="{ width: '100%' }" />
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="email" class="font-semibold w-24" style="margin-right: 10px;">Descrição</label>
+            <input pInputText id="descricao" class="flex-auto" autocomplete="off" [style]="{ width: '100%' }" />
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="flex items-center gap-4 mb-8">
+                        <label for="email" class="font-semibold w-24">Quantidade</label>
+                        <input pInputText id="quantidade" class="flex-auto" autocomplete="off"
+                            [style]="{ width: '100%' }" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="flex items-center gap-4 mb-8">
+                        <label for="email" class="font-semibold w-24">Marca</label>
+                        <input pInputText id="marca" class="flex-auto" autocomplete="off" [style]="{ width: '100%' }" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-4">
+                    <p-button label="Cancel" severity="secondary" (click)="visible = false"
+                        [style]="{ marginRight: '10px' }" />
+                    <p-button label="Save" (click)="visible = false" />
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>
