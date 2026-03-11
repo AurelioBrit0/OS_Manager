@@ -1,0 +1,34 @@
+
+
+<div class="container-novo-produto">
+    <div class="row">
+        <div class="offset-md-10">
+
+            <p-button (click)="abrirNovo()" label="+Novo Produto" />
+        </div>
+    </div>
+</div>
+
+<p-dialog 
+    [(visible)]="exibirModal" 
+    [header]="produtoSelecionado() ? 'Editar Produto' : 'Novo Produto'" 
+    [modal]="true" 
+    [draggable]="false" 
+    [resizable]="false"
+    [style]="{ 
+      width: '580px',
+
+      }"
+    styleClass="liquid-modal"
+    [breakpoints]="{'960px': '95vw'}"
+>
+
+    @if (exibirModal()) {
+      <app-produto-cadastro
+        [produtoEdicao]="produtoSelecionado()" 
+        (fecharModal)="aoFecharModal()">
+      </app-produto-cadastro>
+    }
+  </p-dialog>
+
+  

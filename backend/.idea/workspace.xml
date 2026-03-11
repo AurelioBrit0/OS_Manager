@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d1310484-399c-4a43-820c-bddf3af64d7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="3Aopqr2W1Y9VZOgJcsLYhJ0GUTt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1310484-399c-4a43-820c-bddf3af64d7f" name="Changes" comment="" />
+      <created>1773268972355</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773268972355</updated>
+    </task>
+    <servers />
+  </component>
+</project>

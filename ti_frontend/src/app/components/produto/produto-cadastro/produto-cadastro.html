@@ -1,0 +1,69 @@
+<div class="cadastro-container w-full">
+  <form [formGroup]="formProduto" (ngSubmit)="onSubmit()" class="w-full">
+
+    <div class="field col-12">
+      <label for="nome">Nome Completo</label>
+      <input pInputText id="nome" formControlName="nome" placeholder="Ex: João Silva" [style]="{ width: '100%' }" />
+    </div>
+
+    <div class="field col-12">
+      <label for="descricao">Descrição</label>
+      <input pInputText id="descricao" formControlName="descricao" placeholder="Descrição do produto"
+        [style]="{ width: '100%' }" />
+    </div>
+
+    <div class="field col-12">
+      <label for="marca">marca</label>
+      <input pInputText id="marca" placeholder="Ex: Dell, HP, Lenovo" [style]="{ width: '100%' }"
+        formControlName="marca">
+
+    </div>
+
+
+    <br>
+    <div class="container" style="padding-right: 30px; margin-left: 8px;">
+
+      <div class="row">
+
+        <div class="col-6">
+
+          <div class="field col-12">
+            <label for="quantidade">Quantidade</label>
+            <input pInputText id="quantidade" placeholder="Ex: 10, 25, 50" [min]="0" [style]="{ width: '100%' } "
+              formControlName="quantidade">
+
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="field col-12">
+            <label for="valor">Valor</label>
+            <p-inputNumber formControlName="valor" mode="currency" currency="BRL" locale="pt-BR" placeholder="R$ 0,00"
+              style="width: 100%">
+            </p-inputNumber>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <br>
+    <!-- AÇÕES -->
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-5">
+          <div class="form-actions w-full">
+            <p-button label="Cancelar" [text]="true" severity="secondary" (click)="fecharModal.emit()">
+            </p-button>
+
+            <p-button label="Salvar" type="submit" [disabled]="formProduto.invalid" class="btn-save">
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
