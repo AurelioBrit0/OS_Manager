@@ -8,9 +8,13 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Produto } from '../models/model';
 import { ProdutoService } from '../produto-services';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { BadgeModule } from 'primeng/badge';
+import {LucideAngularModule, Package, SquarePenIcon , Trash2Icon} from 'lucide-angular';
 
 
 
@@ -24,27 +28,39 @@ import { ProdutoService } from '../produto-services';
     TooltipModule,
     ConfirmDialogModule,
     InputTextModule,
-    InputGroupModule
+    CardModule,
+    ToastModule,
+    InputGroupModule,
+    BadgeModule,
+    LucideAngularModule
   ],
   standalone: true,
   templateUrl: './produto-listar.html',
   styleUrl: './produto-listar.css',
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService,ProdutoService]
 })
 export class ProdutoListar {
   
+  readonly SquarePenIcon = SquarePenIcon;
+  readonly Trash2Icon = Trash2Icon;
+  readonly package = Package;
     
   private produtoService = inject(ProdutoService);
   private confirmationService = inject(ConfirmationService);
+  
 
   // Estados da Tela usando Signals
   produtos = signal<Produto[]>([]);
   exibirModal = signal<boolean>(false);
   produtoSelecionado = signal<Produto | null>(null);
   carregando = signal<boolean>(true);
-
+  products!: Produto[];
+  
   ngOnInit(): void {
     this.buscarProdutos();
+    this.produtoService.listarProdutos().subscribe((data) => {
+            this.produtos.set(data);
+        });
   }
 
   buscarProdutos(): void {
@@ -98,4 +114,26 @@ export class ProdutoListar {
     });
   }
     
+
+   
+
+    rowClass(produto: Produto) {
+        return { '!bg-primary !text-primary-contrast': this.produtos().some(p => p.marca === 'Fitness') };
+    }
+
+    rowStyle(product: Produto) {
+        if (product.quantidade === 0) {
+            return { fontWeight: 'bold', fontStyle: 'italic' };
+        } else if (product.quantidade > 0 && product.quantidade < 10) {
+            return { fontStyle: 'italic' };
+        } else {
+            return {};
+        }
+    }
+
+    stockSeverity(product: Produto) {
+        if (product.quantidade === 0 || product.quantidade <= 1) return 'danger';
+        else if (product.quantidade > 0 && product.quantidade < 10) return 'warn';
+        else   return 'success';
+    }
 }

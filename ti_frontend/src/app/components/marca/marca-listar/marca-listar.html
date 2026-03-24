@@ -4,82 +4,66 @@
 
 
 <div class="d-flex flex justify-content mb-2">
-
-<lucide-angular [img]="package" class="my-icon" size="40"></lucide-angular>
+ <lucide-angular [img]="tag" class="my-icon" size="37"></lucide-angular>
   <div class="container-fluid">
-    
+   
     <div class="row justify-content-evenly" style="margin-bottom: -20px;">
 
       <div class="d-flex col-6 titulo-pagina">
         <span>
-          Produtos
+          Marcas
         </span>
       </div>
 
 
-      <div class="col-6 d-flex justify-content-end botao-novo-produto">
-        <p-button (click)="abrirNovo()" label="+ Novo Produto" />
+      <div class="col-6 d-flex justify-content-end botao-nova-marca">
+        <button pButton type="button" label="+ Nova Marca" class="p-button-primary" (click)="abrirNovo()"></button>
       </div>
     </div>
 
     <div class="row">
       <div class=" col-0 d-flex cde">
-        <span>Controle de Estoque</span>
+        <span>Controle de Marcas</span>
       </div>
     </div>
   </div>
 
 
-  <p-dialog [(visible)]="exibirModal" [header]="produtoSelecionado() ? 'Editar Produto' : 'Novo Produto'" [modal]="true"
-    [draggable]="false" [resizable]="false" [style]="{ 
-      width: '580px', height: '575px',
-
-      }" styleClass="liquid-modal" [breakpoints]="{'960px': '95vw'}">
-
-    @if (exibirModal()) {
-    <app-produto-cadastro [produtoEdicao]="produtoSelecionado()" (fecharModal)="aoFecharModal()">
-    </app-produto-cadastro>
-    }
+  <!-- Modal do PrimeNG para cadastro/edição -->
+  <!-- [visible]="exibirModal()" = controla se o modal está aberto ou fechado
+       (visibleChange)="aoFecharModal()" = acionado quando o usuário fecha o modal
+       [header] = título dinâmico baseado se é novo ou edição -->
+  <p-dialog [visible]="exibirModal()" (visibleChange)="aoFecharModal()" 
+    [header]="marcaSelecionada() ? 'Editar Marca' : 'Nova Marca'" 
+    [modal]="true" [style]="{width: '50vw'}">
+    <!-- Componente filho de cadastro/edição 
+         [marcaEdicao]="marcaSelecionada()" = passa a marca para editar (ou null para novo)
+         (fecharModal)="aoFecharModal()" = evento para fechar o modal ao salvar -->
+    <app-marca-cadastro [marcaEdicao]="marcaSelecionada()" (fecharModal)="aoFecharModal()"></app-marca-cadastro>
   </p-dialog>
-
-
 </div>
-
-
-
-
-
+  
 <br>
 
 <p-card class="mb-3" [style]="{ 'border-radius': '8px', 'background-color': 'white', 'box-shadow': '0 1px 2px ' }">
   <div class="table-responsive ">
     <div class="card">
-      <p-table [value]="produtos()" [tableStyle]="{ 'min-width': '50rem' }">
+      <p-table [value]="marcas()" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
           <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Quantidade</th>
-            <th>Valor</th>
-            <th>Marca</th>
-             <th>Descrição</th>
             <th class="text-center">Ações</th>
           </tr>
         </ng-template>
         <ng-template #body let-product>
-          <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
+          <tr>
             <td>{{ product.id }}</td>
             <td>{{ product.nome }}</td>
-            <td>
-              <p-badge [value]="product.quantidade" [severity]="stockSeverity(product)" />
-            </td>
-            <td>R$ {{ product.valor }}</td>
-            <td>{{ product.marca?.nome }}</td>
-            <td>{{ product.descricao }}</td>
             <td class="h-auto w-auto text-center ">
-              <button class="btn btn-sm btn-danger me-1" (click)="excluirProduto(product)">
+              <!-- <button class="btn btn-sm btn-danger me-1" (click)="excluirProduto(product)">
                 <lucide-angular [img]="Trash2Icon" class="my-icon" size="18"></lucide-angular>
-              </button>
+              </button> -->
               <button class="btn btn-sm btn-info text-white" (click)="abrirEdicao(product)">
                 <lucide-angular [img]="SquarePenIcon" class="my-icon" size="18"></lucide-angular>
               </button>

@@ -22,8 +22,14 @@ public class Produtos {
     private String descricao;
     private double valor;
     private Integer quantidade;
-    private String marca;
 
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
+
+    public double getValorTotal() {
+        return this.valor * this.quantidade;
+    }
 
     public Long getId() {
         return id;
@@ -65,11 +71,11 @@ public class Produtos {
         this.quantidade = quantidade;
     }
 
-    public String getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 }

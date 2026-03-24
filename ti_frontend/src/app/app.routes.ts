@@ -13,5 +13,11 @@ export const routes: Routes = [
       import('./components/produto/produto-routes')
         .then(m => m.produto_routes)
   },
+  {
+    path: 'marca',
+    loadChildren: () =>
+      import('./components/marca/marca-routes')
+        .then(m => m.marca_routes)
+  },
   
 ];

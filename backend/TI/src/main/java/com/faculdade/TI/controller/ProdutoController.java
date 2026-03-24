@@ -31,4 +31,11 @@ public class ProdutoController {
     @PutMapping("/atualizar-produto/{id}")
     public Produtos atualizarProdutoPorId(@PathVariable Long id, @RequestBody Produtos produto) {
         return produtoService.atualizarProdutoPorId(id, produto);}
+
+    @GetMapping("/{id}/valor-total")
+    public double valorTotalPorProduto(@PathVariable Long id) {
+        return produtoService.calcularValorTotalPorId(id);
+    }
+
 }
+

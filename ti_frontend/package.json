@@ -30,8 +30,10 @@
     "@angular/router": "^20.3.0",
     "@primeuix/themes": "^2.0.3",
     "bootstrap": "^5.3.8",
+    "lucide-angular": "^0.577.0",
     "primeng": "^20.4.0",
     "rxjs": "~7.8.0",
+    "tailwind": "^2.3.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

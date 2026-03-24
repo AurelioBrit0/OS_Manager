@@ -1,0 +1,30 @@
+<!-- Container do formulário de cadastro -->
+<div class="cadastro-container w-full">
+  <!-- Formulário reativo: [formGroup] vincula ao FormGroup do componente -->
+  <form [formGroup]="formMarca" (ngSubmit)="onSubmit()" class="w-full">
+
+    <!-- Campo Nome da Marca -->
+    <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="nome">Nome da Marca</label>
+      <!-- formControlName vincula o input ao controle do FormGroup -->
+      <input pInputText id="nome" formControlName="nome" 
+        placeholder="Ex: Nike, Adidas" [style]="{ width: '100%' }" />
+      <!-- Nota: Validações são aplicadas automaticamente pelo FormGroup -->
+    </div>
+
+
+
+    <!-- Botões de ação -->
+    <div style="margin-top: 20px;">
+      <!-- Botão Salvar: desabilitado se formulário é inválido -->
+      <p-button label="Salvar" type="submit" [disabled]="formMarca.invalid" class="btn-save">
+            </p-button>
+      
+      <!-- Botão Cancelar: emite evento para fechar o modal -->
+      <button pButton type="button" label="Cancelar" 
+        class="p-button-secondary" (click)="fecharModal.emit()" 
+        style="margin-left: 10px;"></button>
+    </div>
+
+  </form>
+</div>

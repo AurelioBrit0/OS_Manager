@@ -4,17 +4,28 @@
       <span class="fs-4">OS Manager</span>
     </a>
     <hr>
+ 
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
        <a href="/home"  class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#agrid"></use></svg>
+          <lucide-angular [img]="house" color="#ffffff" class="my-icon" size="18"></lucide-angular>
           Home
         </a>
       </li>
       <li>
         <a href="/produto/listar" class="nav-link text-white">
+          
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          <lucide-angular [img]="package" color="#ffffff" class="my-icon" size="18"></lucide-angular>
           Produto
+        </a>
+      </li>
+      <li>
+        <a href="/marca/listar" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#tag"></use></svg>
+          <lucide-angular [img]="tag" color="#ffffff" class="my-icon" size="18"></lucide-angular>
+          Marca
         </a>
       </li>
       <li>

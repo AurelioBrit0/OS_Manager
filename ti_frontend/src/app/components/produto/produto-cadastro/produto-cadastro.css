@@ -1,0 +1,54 @@
+.cadastro-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.field input,
+.field p-inputNumber,
+.field p-autoComplete {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-save {
+  background-color: #2ecc71;
+}
+
+.container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+:deep(.p-inputnumber-input) {
+  width: 100%;
+}

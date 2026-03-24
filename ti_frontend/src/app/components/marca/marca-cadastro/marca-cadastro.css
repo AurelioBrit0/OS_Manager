@@ -1,0 +1,40 @@
+/* Estilo do container principal do formulário */
+.cadastro-container {
+  padding: 20px;                              /* Espaço interno */
+  background-color: #f9f9f9;                  /* Fundo levemente cinzento */
+  border-radius: 8px;                         /* Cantos arredondados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+}
+
+/* Classe para cada campo do formulário */
+.field {
+  margin-bottom: 15px; /* Espaço entre campos */
+}
+
+/* Estilo dos labels (rótulos dos campos) */
+label {
+  display: block;        /* Ocupa linha inteira */
+  font-weight: 500;      /* Um pouco mais bold */
+  margin-bottom: 5px;    /* Espaço entre label e input */
+  color: #333;           /* Cor escura */
+}
+
+/* Estilo dos inputs de texto */
+input {
+  padding: 8px 12px;           /* Espaço interno */
+  border: 1px solid #ddd;      /* Borda cinza clara */
+  border-radius: 4px;          /* Cantos levemente arredondados */
+  font-size: 14px;
+}
+
+/* Efeito ao focar no input */
+input:focus {
+  outline: none;                         /* Remove outline padrão */
+  border-color: #007bff;                 /* Muda cor da borda para azul */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra azulada */
+}
+
+/* Espaçamento dos botões */
+button {
+  margin-top: 15px; /* Espaço acima dos botões */
+}

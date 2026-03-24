@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { House, LucideAngularModule, Package, Tag} from 'lucide-angular';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-slidebar',
   standalone: true,
-  imports: [],
+  imports: [LucideAngularModule],
   templateUrl: './slidebar.html',
   styleUrl: './slidebar.css',
 })
 export class Slidebar {
  
+ readonly package = Package;
+ readonly house = House;
+ readonly tag = Tag;
+  
+
 }
