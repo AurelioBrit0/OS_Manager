@@ -48,7 +48,7 @@
 <p-card class="mb-3" [style]="{ 'border-radius': '8px', 'background-color': 'white', 'box-shadow': '0 1px 2px ' }">
   <div class="table-responsive ">
     <div class="card">
-      <p-table [value]="marcas()" [tableStyle]="{ 'min-width': '50rem' }"  [scrollable]="true" scrollHeight="496px">
+      <p-table [value]="marcas()" [tableStyle]="{ 'min-width': '50rem' }"  [paginator]="true" [rows]="7" >
         <ng-template #header>
           <tr>
             <th>ID</th>
