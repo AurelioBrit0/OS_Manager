@@ -15,6 +15,7 @@ import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { BadgeModule } from 'primeng/badge';
 import {LucideAngularModule, Package, SquarePenIcon , Trash2Icon} from 'lucide-angular';
+import { MarcaService } from '../../marca/marca-service';
 
 
 
@@ -47,12 +48,14 @@ export class ProdutoListar {
     
   private produtoService = inject(ProdutoService);
   private confirmationService = inject(ConfirmationService);
-  
+  private marcaService = inject(MarcaService);
 
   // Estados da Tela usando Signals
+  marca = signal<any[]>([]);
   produtos = signal<Produto[]>([]);
   exibirModal = signal<boolean>(false);
   produtoSelecionado = signal<Produto | null>(null);
+  marcaSelecionada: any = null;
   carregando = signal<boolean>(true);
   products!: Produto[];
   
@@ -61,11 +64,22 @@ export class ProdutoListar {
     this.produtoService.listarProdutos().subscribe((data) => {
             this.produtos.set(data);
         });
+         this.marcaService.listarMarca().subscribe({
+      next: (dados) => {
+        this.marca.set(dados);
+      }
+    });
   }
 
   buscarProdutos(): void {
     this.carregando.set(true);
-    this.produtoService.listarProdutos().subscribe({
+    this.marcaService.listarMarca().subscribe({
+      next: (dados) => {
+        this.marca.set(dados);
+      }
+    });
+
+    this.produtoService.buscarProdutoPorId('localhost:8080/produto/buscar-produto/${id}').subscribe({
       next: (dados) => {
         this.produtos.set(dados);
         this.carregando.set(false);
@@ -83,7 +97,9 @@ export class ProdutoListar {
   }
 
   abrirEdicao(produto : Produto): void {
+    console.log('Produto selecionado para edição:', produto);
     this.produtoSelecionado.set(produto); // Passa o produto clicado para o modal
+    // this.marcaSelecionada.set(produto.marca);
     this.exibirModal.set(true);
   }
 

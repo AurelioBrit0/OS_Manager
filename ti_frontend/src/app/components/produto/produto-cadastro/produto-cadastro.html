@@ -1,9 +1,9 @@
 <div class="cadastro-container w-full">
   <form [formGroup]="formProduto" (ngSubmit)="onSubmit()" class="w-full">
 
-    <div class="field col-12" style="margin-bottom: 10px;">
-      <label for="nome">Nome Completo</label>
-      <input pInputText id="nome" formControlName="nome" placeholder="Ex: João Silva" [style]="{ width: '100%' }" />
+     <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="nome">Nome do Produto</label>
+      <input pInputText id="nome" formControlName="nome" placeholder="Ex: Firewall" [style]="{ width: '100%' }" />
     </div>
 
     <div class="field col-12" style="margin-bottom: 10px;">
@@ -30,6 +30,29 @@
       </option>
 
     </select>
+    <button 
+      type="button"
+      class="btn btn-success"
+      (click)="irParaCadastroMarca()">
+      +
+    </button>
+<p-dialog 
+  [(visible)]="exibirModalMarca"
+  header="Nova Marca"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+  [closable]="true"
+  [dismissableMask]="false"
+  appendTo="body"
+  [baseZIndex]="2000">
+
+<app-marca-cadastro 
+  [redirecionarAposSalvar]="false"
+  (fecharModal)="fecharModalMarca()">
+</app-marca-cadastro>
+
+</p-dialog>
+    
   </div>
 </div>
 
@@ -50,7 +73,7 @@
         <div class="col-6">
           <div class="field col-12">
             <label for="valor">Valor</label>
-            <p-inputNumber formControlName="valor" mode="currency" currency="BRL" locale="pt-BR" placeholder="R$ 0,00"
+            <p-inputNumber [style]="'text-align:right'" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR" placeholder="R$ 0,00"
               style="width: 100%">
             </p-inputNumber>
           </div>

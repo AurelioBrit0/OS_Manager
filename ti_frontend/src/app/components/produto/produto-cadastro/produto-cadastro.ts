@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, signal, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,6 +13,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageService } from 'primeng/api';
 import { MarcaService } from '../../marca/marca-service';
+import { DialogModule } from 'primeng/dialog';
+import { MarcaCadastro } from '../../marca/marca-cadastro/marca-cadastro';
 
 
 @Component({
@@ -26,6 +28,8 @@ import { MarcaService } from '../../marca/marca-service';
     ReactiveFormsModule,
     InputNumberModule,
     AutoCompleteModule,
+    DialogModule,
+    MarcaCadastro,
     FormsModule ],
     standalone: true,
   templateUrl: './produto-cadastro.html',
@@ -45,10 +49,10 @@ export class ProdutoCadastro implements OnInit{
   @Output() fecharModal = new EventEmitter<void>();
 
   
+  
   private fb = inject(FormBuilder);
   private ProdutoService = inject(ProdutoService);
-  private router = inject(Router);
-  private marcaService = inject(MarcaService);
+constructor(private router: Router) {}  private marcaService = inject(MarcaService);
   private messageService = inject(MessageService);
 
   formProduto!: FormGroup;
@@ -57,7 +61,9 @@ export class ProdutoCadastro implements OnInit{
   marcas: any;
   marcaSelecionada: any = null;
   marcasFiltradas: any[] = [];
-  
+  exibirModal = signal<boolean>(false);
+  produtoSelecionado = signal<Produto | null>(null);
+  exibirModalMarca: boolean = false;
 
   ngOnInit(): void {
     this.inicializarFormulario();
@@ -65,12 +71,32 @@ export class ProdutoCadastro implements OnInit{
 
     if (this.produtoEdicao) {
       this.formProduto.patchValue(this.produtoEdicao);
-      
+      this.marcaSelecionada = this.produtoEdicao.marca;
     }
   }
 
 
+ irParaCadastroMarca() {
+  this.abrirModalMarca();
+}
+
+abrirModalMarca() {
+  this.exibirModalMarca = true;
+}
+
+fecharModalMarca() {
+  this.exibirModalMarca = false;
+  this.carregarMarcas(); // recarrega lista
+}
+
+ abrirNovo(): void {
+    this.produtoSelecionado.set(null); // Limpa para garantir que é um novo cadastro
+    this.exibirModal.set(true);
+  }
+
+
   carregarMarcas(): void {
+    
     this.marcaService.listarMarca().subscribe({
       next: (marcas: any[]) => {
 

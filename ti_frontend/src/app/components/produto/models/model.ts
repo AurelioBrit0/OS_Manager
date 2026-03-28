@@ -4,5 +4,5 @@ export class Produto {
   descricao!: string;
   valor!: number;
   quantidade!: number;
-  marca!: string;
+  marca!: any;
 }

@@ -43,6 +43,7 @@ export class MarcaCadastro implements OnInit{
   
   /** Evento emitido quando modal deve ser fechado (Output) */
   @Output() fecharModal = new EventEmitter<void>();
+  @Input() redirecionarAposSalvar: boolean = true;
 
   // Injeção de dependências
   private fb = inject(FormBuilder);              // Para criar formulários reativos
@@ -118,10 +119,14 @@ export class MarcaCadastro implements OnInit{
    * @param msg - Tipo de ação: "Cadastrada" ou "Editada"
    */
   private sucesso(msg: string) {
-    alert(`Marca ${msg} com sucesso!`);
-    // Emite evento para pai fechar o modal
-    this.fecharModal.emit();
-    // Navega para a listagem de marcas
+  alert(`Marca ${msg} com sucesso!`);
+
+  // Sempre fecha o modal (se estiver sendo usado como modal)
+  this.fecharModal.emit();
+
+  // Só redireciona se permitido
+  if (this.redirecionarAposSalvar) {
     this.router.navigate(['/marca/listar']);
   }
+}
 }

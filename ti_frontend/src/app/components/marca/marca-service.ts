@@ -15,4 +15,17 @@ export class MarcaService {
   salvarMarca(marca: any) {
     return this.httpMarca.post(`${this.urlMarca}/salvar-marca`, marca);
   }
+
+   buscarMarcaPorId(id: any) {
+    return this.httpMarca.get<any>(`${this.urlMarca}/buscar-marca/${id}`);
+  }
+
+   atualizarMarca(marca  : any) {
+    return this.httpMarca.put<any>(`${this.urlMarca}/atualizar-marca/${marca.id}`, marca);
+  }
+
+  deleteMarca(id: string|number) {
+    return this.httpMarca.delete(`${this.urlMarca}/deletar-marca/${id}`);
+  }
+
 }
