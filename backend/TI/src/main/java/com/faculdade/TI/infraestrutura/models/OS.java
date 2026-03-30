@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -22,11 +23,22 @@ public class OS {
     private String titulo;
     private String descricao;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataAbertura;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataFechamento;
+
     private String comentario;
     private double valor;
+
+    @ManyToOne
+    private Produtos produto;
+
+    @ManyToOne
+    private Pessoa pessoa;
 
     @Enumerated(EnumType.STRING)
     private StatusEnum status;

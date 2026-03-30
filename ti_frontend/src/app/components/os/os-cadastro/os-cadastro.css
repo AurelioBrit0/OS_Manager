@@ -1,0 +1,38 @@
+.cadastro-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.col-6 {
+  flex: 1;
+}
+
+.col-4 {
+  flex: 1;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+}
+
+.btn-save {
+  margin-right: 10px;
+}

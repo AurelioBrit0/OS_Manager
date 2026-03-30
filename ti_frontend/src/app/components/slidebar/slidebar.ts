@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { House, LucideAngularModule, Package, Tag} from 'lucide-angular';
+import { House, LucideAngularModule, Package, Tag, Wrench } from 'lucide-angular';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -14,6 +14,7 @@ export class Slidebar {
  readonly package = Package;
  readonly house = House;
  readonly tag = Tag;
+ readonly wrench = Wrench;
   
 
 }

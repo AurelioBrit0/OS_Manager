@@ -1,0 +1,60 @@
+.titulo-pagina {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cde {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.botao-nova-os {
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.my-icon {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.my-icon:hover {
+  transform: scale(1.1);
+}
+
+.btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-info {
+  background-color: #0dcaf0;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #0aa8b5;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #bb2d3b;
+}
+
+.me-1 {
+  margin-right: 8px;
+}

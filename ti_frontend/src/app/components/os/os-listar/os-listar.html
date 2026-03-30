@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="d-flex flex justify-content mb-2">
+  <lucide-angular [img]="wrench" class="my-icon" size="37"></lucide-angular>
+  <div class="container-fluid">
+    <div class="row justify-content-evenly" style="margin-bottom: -20px;">
+      <div class="d-flex col-6 titulo-pagina">
+        <span>Ordens de Serviço</span>
+      </div>
+
+      <div class="col-6 d-flex justify-content-end botao-nova-os">
+        <button pButton type="button" label="+ Nova OS" class="p-button-primary" (click)="abrirNovo()"></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-0 d-flex cde">
+        <span>Controle de Ordens de Serviço</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal do PrimeNG para cadastro/edição -->
+  <p-dialog [visible]="exibirModal()" (visibleChange)="aoFecharModal()" 
+    [header]="osSelecionada() ? 'Editar OS' : 'Nova Ordem de Serviço'" 
+    [modal]="true" [style]="{width: '50vw'}">
+    <app-os-cadastro [osEdicao]="osSelecionada()" (fecharModal)="aoFecharModal()"></app-os-cadastro>
+  </p-dialog>
+</div>
+
+<br>
+
+<p-card class="mb-3" [style]="{ 'border-radius': '8px', 'background-color': 'white', 'box-shadow': '0 1px 2px ' }">
+  <div class="table-responsive">
+    <ng-container *ngIf="!carregando(); else loadingTemplate">
+      <p-table [value]="os_lista()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="7">
+        <ng-template #header>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Data Abertura</th>
+            <th>Status</th>
+            <th>Valor</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-os>
+          <tr>
+            <td>{{ os.id }}</td>
+            <td>{{ os.titulo }}</td>
+            <td>{{ formatarData(os.dataAbertura) }}</td>
+            <td>
+              <p-badge [value]="obterLabelStatus(os.status)" [severity]="obterCorStatus(os.status) || 'secondary'"></p-badge>
+            </td>
+            <td>{{ os.valor | currency: 'BRL':'symbol':'1.2-2' }}</td>
+            <td class="h-auto w-auto text-center">
+              <button class="btn btn-sm btn-danger me-1" (click)="confirmarDelecao(os)">
+                <lucide-angular [img]="Trash2Icon" class="my-icon" size="18"></lucide-angular>
+              </button>
+              <button class="btn btn-sm btn-info text-white" (click)="abrirEdicao(os)">
+                <lucide-angular [img]="SquarePenIcon" class="my-icon" size="18"></lucide-angular>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-container>
+
+    <ng-template #loadingTemplate>
+      <div class="text-center p-5">
+        <p-progressSpinner></p-progressSpinner>
+        <p>Carregando Ordens de Serviço...</p>
+      </div>
+    </ng-template>
+  </div>
+</p-card>

@@ -19,5 +19,11 @@ export const routes: Routes = [
       import('./components/marca/marca-routes')
         .then(m => m.marca_routes)
   },
+  {
+    path: 'os',
+    loadChildren: () =>
+      import('./components/os/os-routes')
+        .then(m => m.os_routes)
+  },
   
 ];
