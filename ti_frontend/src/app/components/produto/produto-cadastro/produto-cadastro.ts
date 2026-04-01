@@ -164,7 +164,7 @@ abrirDropdown() {
   private sucesso(msg: string) {
     alert(`Produto ${msg} com sucesso!`);
     this.fecharModal.emit();
-     window.location.reload();
+    window.location.reload();
     this.router.navigate(['/produto/listar']);
   }
 

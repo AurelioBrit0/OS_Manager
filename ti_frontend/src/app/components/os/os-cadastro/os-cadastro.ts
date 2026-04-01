@@ -37,7 +37,6 @@ export class OSCadastro implements OnInit, OnChanges {
     this.visible = true;
   }
 
-  date: Date | undefined;
   /** OS passada de fora para edição (Input) */
   @Input() osEdicao: OS | null = null;
   
@@ -62,9 +61,35 @@ export class OSCadastro implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['osEdicao'] && this.osEdicao) {
-      this.formOS.patchValue(this.osEdicao);
+     if (changes['osEdicao'] && this.osEdicao) {
+      const converterData = (data: string) => {
+      if (!data) return null;
+
+      const [dia, mes, ano] = data.split('/');
+      return new Date(Number(ano), Number(mes) - 1, Number(dia));
+    };
+
+      this.formOS.patchValue({
+        ...this.osEdicao,
+        dataAbertura: this.osEdicao.dataAbertura ? converterData(this.osEdicao.dataAbertura) : null,
+        dataFechamento: this.osEdicao.dataFechamento ? converterData(this.osEdicao.dataFechamento) : null
+      });
     }
+  }
+
+  /**
+   * Formata a data de Date para string no formato esperado pelo backend (YYYY-MM-DDTHH:mm:ss)
+   */
+  private formatarDataParaBackend(data: Date | null | undefined): string | null {
+    if (!data) return null;
+
+    const d = new Date(data);
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const ano = d.getFullYear();
+    
+
+    return `${dia}/${mes}/${ano}`;
   }
 
   /**
@@ -76,14 +101,10 @@ export class OSCadastro implements OnInit, OnChanges {
       titulo: ['', [Validators.required, Validators.minLength(3)]],
       descricao: ['', [Validators.required, Validators.minLength(5)]],
       comentario: [''],
-      dataAbertura: [''],
-      horaAbertura: [''],
+      dataAbertura: ['', Validators.required],
       dataFechamento: [''],
-      horaFechamento: [''],
       status: ['NOVO', Validators.required],
-    //   pessoa: [''],
-    //   produto: [''],
-      valor: [''],
+      valor: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -92,19 +113,28 @@ export class OSCadastro implements OnInit, OnChanges {
    * Decide se é criação ou atualização baseado se tem ID
    */
   onSubmit() {
-    
     // Se formulário é inválido, interrompe a submissão
     if (this.formOS.invalid) return;
 
     // Pega os valores do formulário
-    const dadosEnvio: OS = this.formOS.value;
+    const dadosFormulario = this.formOS.value;
+    
+    // Formata as datas para o backend
+    const dadosEnvio: any = {
+      ...dadosFormulario,
+      dataAbertura: this.formatarDataParaBackend(dadosFormulario.dataAbertura),
+      dataFechamento: this.formatarDataParaBackend(dadosFormulario.dataFechamento)
+    };
 
+    if (dadosFormulario.id) {
+  dadosEnvio.dataAbertura = this.osEdicao?.dataAbertura;
+}
 
-    if (dadosEnvio.id) {
-      this.editar(dadosEnvio);
-    } else {
-      this.salvar(dadosEnvio);
-    }
+if (dadosEnvio.id) {
+  this.editar(dadosEnvio);
+} else {
+  this.salvar(dadosEnvio);
+}
   }
 
   private salvar(os: OS) {
@@ -129,7 +159,7 @@ export class OSCadastro implements OnInit, OnChanges {
   }
 
  
-  private editar(os: OS) {
+  private editar(os: any) {
     this.osService.atualizarOS(os).subscribe({
       next: () => {
         this.messageService.add({

@@ -10,8 +10,6 @@
         <input pInputText id="titulo" formControlName="titulo" 
           placeholder="Ex: Manutenção de servidor" class="form-control" [style]="{ width: '100%' }" />
       </div>
-      </div>
-      <div class="row">
       <div class="col-6" style="margin-bottom: 10px;">
         <label for="status">Status</label>
         <select id="status" class="form-select" formControlName="status" style="width: 100%;">
@@ -41,12 +39,12 @@
     <div class="row">
       <div class="col-6" style="margin-bottom: 10px;">
         <label for="dataAbertura">Data de Abertura</label>
-        <p-datepicker inputId="dataAbertura" [(ngModel)]="date" placeholder="__/__/____"  [style]="{ width: '100%' }" />
+        <p-datepicker inputId="dataAbertura" formControlName="dataAbertura" placeholder="__/__/____" [showIcon]="true" [style]="{ width: '100%' }" />
       </div>
 
       <div class="col-6" style="margin-bottom: 10px;">
         <label for="dataFechamento">Data de Fechamento</label>
-        <p-datepicker type="date" id="dataFechamento"  [(ngModel)]="date" placeholder="__/__/____" [style]="{ width: '100%' }" />
+        <p-datepicker inputId="dataFechamento" formControlName="dataFechamento" placeholder="__/__/____" [showIcon]="true" [style]="{ width: '100%' }" />
       </div>
     </div>
 

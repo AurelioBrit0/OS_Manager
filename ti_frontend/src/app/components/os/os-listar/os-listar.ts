@@ -76,6 +76,7 @@ export class OSListar {
    */
   ngOnInit(): void {
     this.buscarOS();
+    
   }
 
   

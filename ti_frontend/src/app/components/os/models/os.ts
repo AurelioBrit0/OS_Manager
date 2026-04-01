@@ -1,7 +1,9 @@
 export class OS {
   id?: number;
   dataAbertura!: string;
+    horaAbertura!: string;
   dataFechamento?: string;
+    horaFechamento?: string;
   titulo!: string;
   descricao!: string;
   comentario?: string;
