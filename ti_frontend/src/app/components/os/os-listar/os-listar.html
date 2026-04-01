@@ -49,7 +49,7 @@
           <tr>
             <td>{{ os.id }}</td>
             <td>{{ os.titulo }}</td>
-            <td>{{ formatarData(os.dataAbertura) }}</td>
+            <td>{{ os.dataAbertura }}</td>
             <td>
               <p-badge [value]="obterLabelStatus(os.status)" [severity]="obterCorStatus(os.status) || 'secondary'"></p-badge>
             </td>

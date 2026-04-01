@@ -53,6 +53,7 @@ export class MarcaListar {
   // Injeção de dependências: serviço de marca e serviço de confirmação
   private marcaService = inject(MarcaService);
   private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
   
   // SIGNALS: Reatividade moderna do Angular (substituem Observable em muitos casos)
   // Signal = uma forma mais simples e performática de gerenciar estado
@@ -75,9 +76,10 @@ export class MarcaListar {
    */
   ngOnInit(): void {
     this.buscarMarcas();
-    this.marcaService.listarMarca().subscribe((data) => {
-      // .set() = atualiza o valor do signal
-      this.marcas.set(data);
+    this.marcaService.listarMarca().subscribe({
+      next: (dados) => {
+        this.marcas.set(dados);
+      }
     });
   }
 
@@ -115,10 +117,12 @@ export class MarcaListar {
    * @param marca - A marca a ser editada
    */
   abrirEdicao(marca : Marca): void {
+    console.log('Marca selecionada para edição:', marca);
     this.marcaSelecionada.set(marca); // Define qual marca está sendo editada
     this.exibirModal.set(true);       // Abre o modal
   }
 
+  
   /**
    * Fecha o modal e recarrega a lista de marcas
    * Chamado após salvar ou cancelar a edição
@@ -128,37 +132,32 @@ export class MarcaListar {
     this.buscarMarcas();         // Recarrega a lista para mostrar atualizações
   }
 
-  /**
-   * Deleta uma marca após confirmação do usuário
-   * Usa ConfirmationService para pedir confirmação antes de deletar
-   * @param marca - A marca a ser deletada
-   */
-//   excluirMarca(marca: Marca): void {
-//     // Abre caixa de diálogo de confirmação
-//     this.confirmationService.confirm({
-//       message: `Tem certeza que deseja excluir a marca "${marca.nome}"?`,
-//       header: 'Confirmação',
-//       icon: 'pi pi-exclamation-triangle',
-//       acceptLabel: 'Sim',
-//       rejectLabel: 'Não',
-//       accept: () => {
-//         // Usuário clicou em "Sim"
-//         if (marca.id) {
-//           this.marcaService.deleteMarca(marca.id).subscribe({
-//             next: () => {
-//               // Sucesso na exclusão
-//               this.sucesso(`Marca "${marca.nome}" deletada com sucesso!`);
-//               this.buscarMarcas(); // Atualiza a lista
-//             },
-//             error: (err) => {
-//               console.error('Erro ao deletar marca:', err);
-//               alert('Erro ao deletar marca');
-//             }
-//           });
-//         }
-//       }
-//     });
-//   }
+  excluirMarca(marca: Marca): void {
+      this.confirmationService.confirm({
+        message: `Tem certeza que deseja excluir a marca "${marca.nome}"?`,
+        header: 'Confirmação',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim',
+        rejectLabel: 'Não',
+        acceptButtonStyleClass: 'btn-confirm-success',
+        rejectButtonStyleClass: 'btn-confirm-danger',
+        accept: () => {
+          this.marcaService.deleteMarca(marca.id!).subscribe({
+            next: () => {
+              this.buscarMarcas();
+            },
+            error: (erro) => {
+              console.error('Erro ao excluir marca:', erro);
+               this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Não é possível excluir a marca, pois existem produtos vinculados a ela!'
+            });
+            }
+          });
+        }
+      });
+    }
 
   /**
    * Exibe mensagem de sucesso para o usuário

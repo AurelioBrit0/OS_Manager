@@ -3,6 +3,7 @@ package com.faculdade.TI.services;
 import com.faculdade.TI.infraestrutura.models.Marca;
 import com.faculdade.TI.infraestrutura.repository.MarcaRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -29,8 +30,13 @@ public class MarcaService {
         return marcaRepository.findById(id).orElseThrow(() -> new RuntimeException("ID não encontrado"));
     }
 
-    public void deletarMarcaPorId (Long id) { marcaRepository.deleteById(id);}
-
+    public void deletarMarcaPorId(Long id) {
+        try {
+            marcaRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Não é possível excluir a marca, pois existem produtos vinculados a ela.");
+        }
+    }
     public Marca atualizarMarcaPorId(Long id, Marca marcaAtualizada) {
 
         Marca marcaExistente = buscarMarcaPorId(id);

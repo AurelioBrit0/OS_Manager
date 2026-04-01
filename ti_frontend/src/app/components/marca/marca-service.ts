@@ -24,7 +24,7 @@ export class MarcaService {
     return this.httpMarca.put<any>(`${this.urlMarca}/atualizar-marca/${marca.id}`, marca);
   }
 
-  deleteMarca(id: string|number) {
+  deleteMarca(id: any) {
     return this.httpMarca.delete(`${this.urlMarca}/deletar-marca/${id}`);
   }
 

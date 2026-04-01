@@ -115,9 +115,12 @@ export class OSListar {
    * @param os - OS a ser editada
    */
   abrirEdicao(os: OS): void {
+    console.log('Produto selecionado para edição:', os);
     this.osSelecionada.set(os);
     this.exibirModal.set(true);
   }
+
+ 
 
   /**
    * Acionado quando o modal é fechado
@@ -196,29 +199,4 @@ export class OSListar {
     return labels[status] || status;
   }
 
-  /**
-   * Formata data para exibição
-   * @param data - Data a formatar
-   */
-  formatarData(data: any): string {
-  if (!data) return '-';
-
-  // Se já estiver no formato BR (dd/MM/yyyy HH:mm:ss)
-  if (typeof data === 'string' && data.includes('/')) {
-    const [dataParte, horaParte] = data.split(' ');
-    const [dia, mes, ano] = dataParte.split('/');
-
-    const iso = `${ano}-${mes}-${dia}T${horaParte || '00:00:00'}`;
-    const d = new Date(iso);
-
-    return d.toLocaleDateString('pt-BR');
-  }
-
-  // Se for ISO ou Date válido
-  const d = new Date(data);
-
-  if (isNaN(d.getTime())) return 'Data inválida';
-
-  return d.toLocaleDateString('pt-BR');
-}
 }

@@ -56,15 +56,15 @@
             <th class="text-center">Ações</th>
           </tr>
         </ng-template>
-        <ng-template #body let-product>
+        <ng-template #body let-marca>
           <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.nome }}</td>
+            <td>{{ marca.id }}</td>
+            <td>{{ marca.nome }}</td>
             <td class="h-auto w-auto text-center ">
-              <!-- <button class="btn btn-sm btn-danger me-1" (click)="excluirProduto(product)">
-                <lucide-angular [img]="Trash2Icon" class="my-icon" size="18"></lucide-angular>
-              </button> -->
-              <button class="btn btn-sm btn-info text-white" (click)="abrirEdicao(product)">
+                    <button class="btn btn-sm btn-danger me-1" (click)="excluirMarca(marca)">
+                      <lucide-angular [img]="Trash2Icon" class="my-icon" size="18"></lucide-angular>
+                    </button>
+              <button class="btn btn-sm btn-info text-white" (click)="abrirEdicao(marca)">
                 <lucide-angular [img]="SquarePenIcon" class="my-icon" size="18"></lucide-angular>
               </button>
             </td>

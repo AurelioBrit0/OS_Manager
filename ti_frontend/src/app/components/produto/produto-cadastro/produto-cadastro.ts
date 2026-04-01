@@ -71,7 +71,6 @@ constructor(private router: Router) {}  private marcaService = inject(MarcaServi
 
     if (this.produtoEdicao) {
       this.formProduto.patchValue(this.produtoEdicao);
-      this.marcaSelecionada = this.produtoEdicao.marca;
     }
   }
 
@@ -96,19 +95,18 @@ fecharModalMarca() {
 
 
   carregarMarcas(): void {
-    
-    this.marcaService.listarMarca().subscribe({
-      next: (marcas: any[]) => {
+  this.marcaService.listarMarca().subscribe({
+    next: (marcas: any[]) => {
+      this.listarMarcas = marcas;
 
-        this.listarMarcas = marcas.filter(
-          (v, i, a) =>
-            a.findIndex(t => t.nome.toLowerCase() === v.nome.toLowerCase()) === i
+      if (this.produtoEdicao?.marca) {
+        this.marcaSelecionada = this.listarMarcas.find(
+          m => m.id === this.produtoEdicao!.marca.id
         );
-
-      },
-      error: (err) => console.error('Erro ao carregar lista de marcas:', err),
-    });
-  }
+      }
+    }
+  });
+}
 
 
 @ViewChild('auto') autoComplete: any;
@@ -166,6 +164,7 @@ abrirDropdown() {
   private sucesso(msg: string) {
     alert(`Produto ${msg} com sucesso!`);
     this.fecharModal.emit();
+     window.location.reload();
     this.router.navigate(['/produto/listar']);
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Marca } from '../models/marca';
 import { MessageService } from 'primeng/api';
 import { MarcaService } from '../marca-service';
+import { Produto } from '../../produto/models/model';
 
 /**
  * Componente responsável por cadastrar e editar marcas
@@ -60,9 +61,10 @@ export class MarcaCadastro implements OnInit{
    */
   ngOnInit(): void {
     this.inicializarFormulario();
+  }
 
-    // Se marcaEdicao foi passada como Input, preenche o formulário com os dados
-    if (this.marcaEdicao) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['marcaEdicao'] && this.marcaEdicao) {
       this.formMarca.patchValue(this.marcaEdicao);
     }
   }
@@ -74,7 +76,7 @@ export class MarcaCadastro implements OnInit{
   private inicializarFormulario() {
     this.formMarca = this.fb.group({
       id: [null],                                    // ID (será null para novo)
-      nome: ['', [Validators.required, Validators.minLength(3)]],  // Requerido, mín 3 caracteres
+      nome: ['', [Validators.required, Validators.minLength(1)]],  // Requerido, mín 1 caractere
     });
   }
 
@@ -89,7 +91,11 @@ export class MarcaCadastro implements OnInit{
     // Pega os valores do formulário
     const dadosEnvio: Marca = this.formMarca.value;
 
-   this.salvar(dadosEnvio);
+    if (dadosEnvio.id) {
+    this.editar(dadosEnvio);
+  } else {
+    this.salvar(dadosEnvio);
+  }
   }
 
   /**
@@ -103,16 +109,12 @@ export class MarcaCadastro implements OnInit{
     });
   }
 
-//   /**
-//    * Envia atualização para o servidor
-//    * @param m - Marca com dados atualizados
-//    */
-//   private editar(m: Marca) {
-//     this.marcaService.atualizarMarca(m).subscribe({
-//       next: () => this.sucesso("Editada"),  // Sucesso
-//       error: (err) => console.error(err)     // Erro
-//     });
-//   }
+ private editar(m: Marca) {
+    this.marcaService.atualizarMarca(m).subscribe({
+      next: () => this.sucesso("Editada"),
+      error: (err) => console.error(err)
+    });
+  }
 
   /**
    * Exibe mensagem de sucesso e fecha o modal

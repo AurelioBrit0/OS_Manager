@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,11 +10,8 @@ import { OS } from '../models/os';
 import { MessageService } from 'primeng/api';
 import { OSService } from '../os-service';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DatePickerModule } from 'primeng/datepicker';
 
-/**
- * Componente responsável por cadastrar e editar Ordens de Serviço (OS)
- * Pode ser usado em um modal ou em uma página dedicada
- */
 @Component({
   selector: 'app-os-cadastro',
   imports: [
@@ -25,13 +22,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
     RippleModule, 
     ReactiveFormsModule,
     InputNumberModule,
-    FormsModule
+    FormsModule,
+    DatePickerModule
   ],
   standalone: true,
   templateUrl: './os-cadastro.html',
   styleUrl: './os-cadastro.css',
 })
-export class OSCadastro implements OnInit {
+export class OSCadastro implements OnInit, OnChanges {
 
   visible: boolean = false;
 
@@ -39,12 +37,12 @@ export class OSCadastro implements OnInit {
     this.visible = true;
   }
 
+  date: Date | undefined;
   /** OS passada de fora para edição (Input) */
   @Input() osEdicao: OS | null = null;
   
   /** Evento emitido quando modal deve ser fechado (Output) */
   @Output() fecharModal = new EventEmitter<void>();
-  @Input() redirecionarAposSalvar: boolean = true;
 
   // Injeção de dependências
   private fb = inject(FormBuilder);
@@ -61,25 +59,11 @@ export class OSCadastro implements OnInit {
    */
   ngOnInit(): void {
     this.inicializarFormulario();
+  }
 
-    // Se osEdicao foi passada como Input, preenche o formulário com os dados
-    if (this.osEdicao) {
-      // Converte data para formato YYYY-MM-DD que input[type=date] espera
-      const formatarData = (data: any) => {
-        if (!data) return null;
-        const d = new Date(data);
-        const ano = d.getFullYear();
-        const mes = String(d.getMonth() + 1).padStart(2, '0');
-        const dia = String(d.getDate()).padStart(2, '0');
-        return `${ano}-${mes}-${dia}`;
-      };
-      
-      const osParaEditar = {
-        ...this.osEdicao,
-        dataAbertura: formatarData(this.osEdicao.dataAbertura),
-        dataFechamento: formatarData(this.osEdicao.dataFechamento)
-      };
-      this.formOS.patchValue(osParaEditar);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['osEdicao'] && this.osEdicao) {
+      this.formOS.patchValue(this.osEdicao);
     }
   }
 
@@ -93,7 +77,9 @@ export class OSCadastro implements OnInit {
       descricao: ['', [Validators.required, Validators.minLength(5)]],
       comentario: [''],
       dataAbertura: [''],
+      horaAbertura: [''],
       dataFechamento: [''],
+      horaFechamento: [''],
       status: ['NOVO', Validators.required],
     //   pessoa: [''],
     //   produto: [''],
@@ -113,55 +99,14 @@ export class OSCadastro implements OnInit {
     // Pega os valores do formulário
     const dadosEnvio: OS = this.formOS.value;
 
-    // Formata as datas para LocalDateTime (YYYY-MM-DDTHH:mm:ss)
-    const osFormatada = this.formatarDatasParaBackend(dadosEnvio);
 
-    if (osFormatada.id) {
-      this.editar(osFormatada);
+    if (dadosEnvio.id) {
+      this.editar(dadosEnvio);
     } else {
-      this.salvar(osFormatada);
+      this.salvar(dadosEnvio);
     }
   }
 
-  /**
-   * Formata as datas do formulário para formato LocalDateTime esperado pelo backend
-   * Converte YYYY-MM-DD para YYYY-MM-DDTHH:mm:ss
-   */
- private formatarDataBR(data: string): string {
-  if (!data) return '';
-
-  const d = new Date(data);
-
-  const dia = String(d.getDate()).padStart(2, '0');
-  const mes = String(d.getMonth() + 1).padStart(2, '0');
-  const ano = d.getFullYear();
-
-  return `${dia}/${mes}/${ano} 00:00:00`;
-}
-
-private formatarDatasParaBackend(os: OS): any {
-  return {
-    ...os,
-    dataAbertura: os.dataAbertura ? this.formatarDataBR(os.dataAbertura) : null,
-    dataFechamento: os.dataFechamento ? this.formatarDataBR(os.dataFechamento) : null
-  };
-}
-
-
-  private limparFormulario() {
-    this.formOS.reset();
-
-    this.formOS.patchValue({
-        status: 'NOVO'
-    });
-
-    this.osEdicao = null;
-}
-
-  /**
-   * Envia novo cadastro para o servidor
-   * @param os - Nova OS a ser salva
-   */
   private salvar(os: OS) {
     this.osService.salvarOS(os).subscribe({
       next: () => {
@@ -170,14 +115,8 @@ private formatarDatasParaBackend(os: OS): any {
           summary: 'Sucesso',
           detail: 'OS cadastrada com sucesso!'
         });
-
-        this.limparFormulario();
-
+        this.formOS.reset();
         this.fecharModal.emit();
-
-        if (this.redirecionarAposSalvar) {
-          this.router.navigate(['/os/listar']);
-        }
       },
       error: () => {
         this.messageService.add({
@@ -189,10 +128,7 @@ private formatarDatasParaBackend(os: OS): any {
     });
   }
 
-  /**
-   * Envia atualização para o servidor
-   * @param os - OS a ser atualizada
-   */
+ 
   private editar(os: OS) {
     this.osService.atualizarOS(os).subscribe({
       next: () => {
@@ -201,11 +137,8 @@ private formatarDatasParaBackend(os: OS): any {
           summary: 'Sucesso',
           detail: 'OS atualizada com sucesso!'
         });
+        this.formOS.reset();
         this.fecharModal.emit();
-
-        if (this.redirecionarAposSalvar) {
-          this.router.navigate(['/os/listar']);
-        }
       },
       error: () => {
         this.messageService.add({
