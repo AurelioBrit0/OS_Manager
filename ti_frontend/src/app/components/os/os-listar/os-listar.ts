@@ -131,6 +131,7 @@ export class OSListar {
     this.exibirModal.set(false);
     this.osSelecionada.set(null);
     this.buscarOS();
+    window.location.reload();
   }
 
   /**
