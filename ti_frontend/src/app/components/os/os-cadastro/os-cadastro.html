@@ -10,7 +10,7 @@
         <input pInputText id="titulo" formControlName="titulo" 
           placeholder="Ex: Manutenção de servidor" class="form-control" [style]="{ width: '100%' }" />
       </div>
-      <div class="col-6" style="margin-bottom: 10px;">
+      <div class="col-6" style="margin-bottom: 10px;" *ngIf="formOS.get('id')?.value">
         <label for="status">Status</label>
         <select id="status" class="form-select" formControlName="status" style="width: 100%;">
         <option [value]="'NOVO'">Novo</option>
@@ -29,15 +29,15 @@
     </div>
 
     <!-- Linha 3: Comentário (full width) -->
-    <div class="field col-12" style="margin-bottom: 10px;">
+    <div class="field col-12" style="margin-bottom: 10px;" *ngIf="formOS.get('id')?.value">
       <label for="comentario">Comentário</label>
       <textarea id="comentario" formControlName="comentario" 
         placeholder="Adicione comentários adicionais" rows="4" [style]="{ width: '100%' }" class="form-control"></textarea>
     </div>
 
     <!-- Linha 4: Datas de abertura e fechamento -->
-    <div class="row">
-      <div class="col-6" style="margin-bottom: 10px;">
+    <div class="row" *ngIf="formOS.get('id')?.value">
+      <div class="col-6" style="margin-bottom: 10px;" >
         <label for="dataAbertura">Data de Abertura</label>
         <p-datepicker inputId="dataAbertura" formControlName="dataAbertura" placeholder="__/__/____" [showIcon]="true" [style]="{ width: '100%' }" />
       </div>
@@ -60,7 +60,7 @@
         <input type="number" id="produto_id" class="form-control" formControlName="produto_id" 
           placeholder="ID do produto" [style]="{ width: '100%' }" />
       </div> -->
-      <div class="col-4" style="margin-bottom: 10px;">
+      <div class="col-4" style="margin-bottom: 10px;" *ngIf="formOS.get('id')?.value">
         <label for="valor">Valor</label>
         <p-inputNumber id="valor" formControlName="valor" mode="currency" currency="BRL" 
           locale="pt-BR" [style]="{ width: '100%' }"></p-inputNumber>

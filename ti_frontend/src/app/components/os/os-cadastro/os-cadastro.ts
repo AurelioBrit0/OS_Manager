@@ -92,50 +92,42 @@ export class OSCadastro implements OnInit, OnChanges {
     return `${dia}/${mes}/${ano}`;
   }
 
-  /**
-   * Cria o FormGroup com validações
-   */
-  private inicializarFormulario() {
-    this.formOS = this.fb.group({
-      id: [null],
-      titulo: ['', [Validators.required, Validators.minLength(3)]],
-      descricao: ['', [Validators.required, Validators.minLength(5)]],
-      comentario: [''],
-      dataAbertura: ['', Validators.required],
-      dataFechamento: [''],
-      status: ['NOVO', Validators.required],
-      valor: ['', [Validators.required, Validators.min(0)]],
-    });
-  }
+ private inicializarFormulario() {
+  this.formOS = this.fb.group({
+    id: [null],
+    titulo: ['', [Validators.required, Validators.minLength(3)]],
+    descricao: ['', [Validators.required, Validators.minLength(5)]],
+    comentario: [''],
+    // Removido o Validators.required daqui
+    dataAbertura: [null], 
+    dataFechamento: [null],
+    status: ['NOVO'], // O backend também cuidará disso no PrePersist
+    valor: [0, [Validators.required, Validators.min(0)]],
+  });
+}
 
   /**
    * Valida e submete o formulário
    * Decide se é criação ou atualização baseado se tem ID
    */
   onSubmit() {
-    // Se formulário é inválido, interrompe a submissão
-    if (this.formOS.invalid) return;
+  if (this.formOS.invalid) return;
 
-    // Pega os valores do formulário
-    const dadosFormulario = this.formOS.value;
-    
-    // Formata as datas para o backend
-    const dadosEnvio: any = {
-      ...dadosFormulario,
-      dataAbertura: this.formatarDataParaBackend(dadosFormulario.dataAbertura),
-      dataFechamento: this.formatarDataParaBackend(dadosFormulario.dataFechamento)
-    };
+  const dadosFormulario = this.formOS.value;
+  
+  const dadosEnvio: any = {
+    ...dadosFormulario,
+    dataAbertura: this.formatarDataParaBackend(dadosFormulario.dataAbertura),
+    dataFechamento: this.formatarDataParaBackend(dadosFormulario.dataFechamento)
+  };
 
-    if (dadosFormulario.id) {
-  dadosEnvio.dataAbertura = this.osEdicao?.dataAbertura;
-}
 
-if (dadosEnvio.id) {
-  this.editar(dadosEnvio);
-} else {
-  this.salvar(dadosEnvio);
-}
+  if (dadosEnvio.id) {
+    this.editar(dadosEnvio);
+  } else {
+    this.salvar(dadosEnvio);
   }
+}
 
   private salvar(os: OS) {
     this.osService.salvarOS(os).subscribe({

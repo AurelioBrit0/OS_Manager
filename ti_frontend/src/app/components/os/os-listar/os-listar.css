@@ -20,14 +20,6 @@
   overflow-x: auto;
 }
 
-.my-icon {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.my-icon:hover {
-  transform: scale(1.1);
-}
 
 .btn {
   padding: 4px 8px;

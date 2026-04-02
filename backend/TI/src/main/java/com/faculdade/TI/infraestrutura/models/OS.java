@@ -55,12 +55,16 @@ public class OS {
 
     @PrePersist
     public void aoAbrirOS() {
-        LocalDateTime agora = LocalDateTime.now();
-
-        this.dataAbertura = agora.toLocalDate();
-        this.horaAbertura = agora.toLocalTime();
-
-        this.status = StatusEnum.NOVO;
+        // Só preenche automaticamente se for uma nova OS e não enviamos datas manuais
+        if (this.dataAbertura == null) {
+            this.dataAbertura = LocalDate.now();
+        }
+        if (this.horaAbertura == null) {
+            this.horaAbertura = LocalTime.now();
+        }
+        if (this.status == null) {
+            this.status = StatusEnum.NOVO;
+        }
     }
 
 
