@@ -121,6 +121,7 @@ export class ProdutoListar {
         this.produtoService.deleteProduto(produto.id!).subscribe({
           next: () => {
             this.buscarProdutos();
+            this.ngOnInit();
           },
           error: (erro) => {
             console.error('Erro ao excluir produto:', erro);

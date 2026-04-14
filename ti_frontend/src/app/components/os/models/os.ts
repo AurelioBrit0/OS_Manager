@@ -9,6 +9,6 @@ export class OS {
   comentario?: string;
   status!: 'NOVO' | 'EM_ANDAMENTO' | 'FINALIZADO' | 'CANCELADO';
   pessoa?: any;  
-  produto!: { id: number };
+  produto!: any;
   valor!: number;
 }

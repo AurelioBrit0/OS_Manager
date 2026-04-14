@@ -11,20 +11,24 @@ import { MessageService } from 'primeng/api';
 import { OSService } from '../os-service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
+import { ProdutoService } from '../../produto/produto-services';
+import { Produto } from '../../produto/models/model';
+import { Dialog } from "primeng/dialog";
 
 @Component({
   selector: 'app-os-cadastro',
   imports: [
     CommonModule,
-    ButtonModule, 
-    InputTextModule, 
-    KeyFilterModule, 
-    RippleModule, 
+    ButtonModule,
+    InputTextModule,
+    KeyFilterModule,
+    RippleModule,
     ReactiveFormsModule,
     InputNumberModule,
     FormsModule,
-    DatePickerModule
-  ],
+    DatePickerModule,
+    Dialog
+],
   standalone: true,
   templateUrl: './os-cadastro.html',
   styleUrl: './os-cadastro.css',
@@ -38,6 +42,7 @@ export class OSCadastro implements OnInit, OnChanges {
   }
 
   /** OS passada de fora para edição (Input) */
+  @Input() produtoEdicao: Produto | null = null;
   @Input() osEdicao: OS | null = null;
   
   /** Evento emitido quando modal deve ser fechado (Output) */
@@ -46,8 +51,13 @@ export class OSCadastro implements OnInit, OnChanges {
   // Injeção de dependências
   private fb = inject(FormBuilder);
   private osService = inject(OSService);
-  private router = inject(Router);
   private messageService = inject(MessageService);
+  constructor(private router: Router) {}  private produtoService = inject(ProdutoService);
+  listarProdutos: any[] = [];
+  produtos: any;
+  produtoSelecionado: any = null;
+  ProdutosFiltrados: any[] = [];
+  exibirModalProduto: boolean = false;
 
   /** FormGroup: agrupa campos do formulário com validações */
   formOS!: FormGroup;
@@ -58,6 +68,7 @@ export class OSCadastro implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     this.inicializarFormulario();
+    this.carregarProdutos();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,6 +88,21 @@ export class OSCadastro implements OnInit, OnChanges {
     }
   }
 
+    carregarProdutos(): void {
+  this.produtoService.listarProdutos().subscribe({
+    next: (produtos: any[]) => {
+      this.listarProdutos = produtos;
+
+      if (this.produtoEdicao?.marca) {
+        this.produtoSelecionado = this.listarProdutos.find(
+          m => m.id === this.osEdicao!.produto.id
+        );
+      }
+    }
+  });
+}
+
+   
   /**
    * Formata a data de Date para string no formato esperado pelo backend (YYYY-MM-DDTHH:mm:ss)
    */

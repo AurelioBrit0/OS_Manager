@@ -48,7 +48,9 @@ public class OS {
     private Produtos produto;
 
     @ManyToOne
+    @JoinColumn(name = "marca_id")
     private Pessoa pessoa;
+
 
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
@@ -64,6 +66,12 @@ public class OS {
         }
         if (this.status == null) {
             this.status = StatusEnum.NOVO;
+        }
+        if (this.status == StatusEnum.FINALIZADO) {
+            this.dataFechamento = LocalDate.now();
+        }
+        if (this.status == StatusEnum.FINALIZADO) {
+            this.horaFechamento = LocalTime.now();
         }
     }
 

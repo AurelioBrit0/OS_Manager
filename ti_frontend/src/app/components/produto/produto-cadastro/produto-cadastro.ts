@@ -61,9 +61,9 @@ constructor(private router: Router) {}  private marcaService = inject(MarcaServi
   marcas: any;
   marcaSelecionada: any = null;
   marcasFiltradas: any[] = [];
+  exibirModalMarca: boolean = false;
   exibirModal = signal<boolean>(false);
   produtoSelecionado = signal<Produto | null>(null);
-  exibirModalMarca: boolean = false;
 
   ngOnInit(): void {
     this.inicializarFormulario();

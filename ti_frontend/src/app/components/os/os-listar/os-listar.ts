@@ -129,9 +129,7 @@ export class OSListar {
    */
   aoFecharModal(): void {
     this.exibirModal.set(false);
-    this.osSelecionada.set(null);
-    this.buscarOS();
-    window.location.reload();
+    this.ngOnInit(); 
   }
 
   /**
