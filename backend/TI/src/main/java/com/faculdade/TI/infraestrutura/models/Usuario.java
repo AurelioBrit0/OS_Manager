@@ -1,10 +1,6 @@
 package com.faculdade.TI.infraestrutura.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,30 +20,11 @@ public class Usuario {
     private Long id;
     private String email;
     private String senha;
+    private String nomeUsuario;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToOne
+    @JoinColumn(name = "pessoa_id") // FK para a tabela pessoa
+    private Pessoa pessoa;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
 }

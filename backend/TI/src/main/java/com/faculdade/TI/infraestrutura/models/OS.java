@@ -48,7 +48,7 @@ public class OS {
     private Produtos produto;
 
     @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
 

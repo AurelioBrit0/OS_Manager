@@ -1,8 +1,11 @@
 package com.faculdade.TI.infraestrutura.Enum;
 
 public enum FuncaoEnum {
-    ADIMIN,
+    ADMIN,
     TECNICO,
-    FINANCEIRO;;
+    FINANCEIRO,
+    CLIENTE_EMPRESA,
+    FORNECEDOR,
+    CLIENTE_PF;
 }
 

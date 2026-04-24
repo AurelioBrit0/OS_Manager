@@ -4,7 +4,7 @@
 }
 
 .sidebar {
-  width: 250px;
+  width: 320px;
   background: #212529;
   color: white;
   position: fixed;
@@ -12,7 +12,7 @@
 }
 
 .content {
-  margin-left: 250px;
+  margin-left: 320px;
   padding: 2rem;
   flex: 1;
 }

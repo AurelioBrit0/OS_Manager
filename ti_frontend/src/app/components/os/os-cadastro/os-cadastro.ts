@@ -52,7 +52,8 @@ export class OSCadastro implements OnInit, OnChanges {
   private fb = inject(FormBuilder);
   private osService = inject(OSService);
   private messageService = inject(MessageService);
-  constructor(private router: Router) {}  private produtoService = inject(ProdutoService);
+  private produtoService = inject(ProdutoService);
+  constructor(private router: Router) {}  
   listarProdutos: any[] = [];
   produtos: any;
   produtoSelecionado: any = null;
@@ -127,7 +128,7 @@ export class OSCadastro implements OnInit, OnChanges {
     // Removido o Validators.required daqui
     dataAbertura: [null], 
     dataFechamento: [null],
-    status: ['NOVO'], // O backend também cuidará disso no PrePersist
+    status: ['NOVO'], 
     valor: [0, [Validators.required, Validators.min(0)]],
   });
 }

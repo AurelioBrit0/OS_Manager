@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1310484-399c-4a43-820c-bddf3af64d7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/Enum/FuncaoEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/Enum/FuncaoEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/Enum/tipoEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/models/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/models/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/TI/src/main/java/com/faculdade/TI/infraestrutura/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/produto/produto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/os/os-cadastro/os-cadastro.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/components/os/os-cadastro/os-cadastro.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ti_frontend/src/app/components/slidebar/slidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,22 +21,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="3Aopqr2W1Y9VZOgJcsLYhJ0GUTt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

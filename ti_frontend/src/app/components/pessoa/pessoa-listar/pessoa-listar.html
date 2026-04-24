@@ -1,0 +1,90 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+
+<div class="d-flex flex justify-content mb-2">
+
+<lucide-angular [img]="User" class="my-icon" size="40"></lucide-angular>
+  <div class="container-fluid">
+    
+    <div class="row justify-content-evenly" >
+
+      <div class="d-flex col-6 titulo-pagina">
+        <span>
+          Pessoas cadastradas no sistema
+        </span>
+      </div>
+
+
+      <div class="col-6 d-flex justify-content-end botao-novo-pessoa">
+        <p-button (click)="abrirNovo()" label="+ Nova Pessoa" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=" col-0 d-flex titulo-pagina2">
+        <span>Controle de Pessoas</span>
+      </div>
+    </div>
+  </div>
+
+
+  <p-dialog [(visible)]="exibirModal" [header]="pessoaSelecionada() ? 'Editar Pessoa' : 'Nova Pessoa'" [modal]="true"
+    [draggable]="false" [resizable]="false" [style]="{ 
+      width: '580px', height: '575px',
+
+      }" styleClass="liquid-modal" [breakpoints]="{'960px': '95vw'}">
+
+    @if (exibirModal()) {
+    <app-pessoa-cadastro [pessoaEdicao]="pessoaSelecionada()" (fecharModal)="aoFecharModal()"></app-pessoa-cadastro>  
+    }
+  </p-dialog>
+
+
+</div>
+
+
+
+
+
+<br>
+
+<p-card class="mb-3" [style]="{ 'border-radius': '8px', 'background-color': 'white', 'box-shadow': '0 1px 2px ' }">
+  <div class="table-responsive ">
+    <div class="card">
+      <p-table [value]="pessoa()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="8" sortField="id" [sortOrder]="-1">
+        <ng-template #header>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>cpf ou cnpj</th>
+            <th>telefone</th>
+            <th>endereco</th>
+             <th>Função</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-pessoa>
+          <tr>
+            <td>{{ pessoa.id }}</td>
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.cpf || pessoa.cnpj }}</td>
+            <td>{{ pessoa.telefone }}</td>
+            <td>{{ pessoa.endereco }}</td>
+            <td>{{ pessoa.funcao }}</td>
+            <td class="h-auto w-auto text-center ">
+              <button class="btn btn-sm btn-danger me-1" (click)="excluirPessoa(pessoa)">
+                <lucide-angular [img]="Trash2Icon" class="my-icon" size="18"></lucide-angular>
+              </button>
+              <button class="btn btn-sm btn-info text-white" (click)="abrirEdicao(pessoa)">
+                <lucide-angular [img]="SquarePenIcon" class="my-icon" size="18"></lucide-angular>
+              </button>
+            </td>
+        
+        
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</p-card>

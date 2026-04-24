@@ -25,5 +25,11 @@ export const routes: Routes = [
       import('./components/os/os-routes')
         .then(m => m.os_routes)
   },
+  {
+    path: 'pessoa',
+    loadChildren: () =>
+      import('./components/pessoa/pessoa-routes')
+        .then(m => m.pessoa_routes)
+  },
   
 ];

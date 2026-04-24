@@ -1,0 +1,74 @@
+<!-- Container do formulário de cadastro -->
+<div class="cadastro-container w-full">
+  <!-- Formulário reativo: [formGroup] vincula ao FormGroup do componente -->
+  <form [formGroup]="formPessoa" (ngSubmit)="onSubmit()" class="w-full">
+
+    <!-- Campo Nome -->
+    <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="nome">Nome</label>
+      <!-- formControlName vincula o input ao controle do FormGroup -->
+      <input pInputText id="nome" formControlName="nome" 
+        placeholder="Ex: Matheus" [style]="{ width: '100%' }" />
+    </div>
+
+    <!-- Campo CPF/CNPJ -->
+    <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="cpf">CPF/CNPJ</label>
+      <!-- formControlName vincula o input ao controle do FormGroup -->
+      <input pInputText id="cpf" formControlName="cpf" 
+        placeholder="Ex: 123.456.789-00" [style]="{ width: '100%' }" />
+    </div>
+
+    <!-- Campo Telefone -->
+    <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="telefone">Telefone</label>
+      <!-- formControlName vincula o input ao controle do FormGroup -->
+      <input pInputText id="telefone" formControlName="telefone" 
+        placeholder="Ex: (11) 91234-5678" [style]="{ width: '100%' }" />
+    </div>
+
+    <!-- Campo Endereço -->
+    <div class="field col-12" style="margin-bottom: 10px;">
+      <label for="endereco">Endereço</label>
+      <!-- formControlName vincula o input ao controle do FormGroup -->
+      <input pInputText id="endereco" formControlName="endereco" 
+        placeholder="Ex: Rua Exemplo, 123" [style]="{ width: '100%' }" />
+    </div>
+
+    <!-- Campo função -->
+    <div class="col-12" style="margin-bottom: 10px;" >
+        <label for="funcao">Função</label>
+        <select id="funcao" class="form-select" formControlName="funcao" style="width: 100%;">
+        <option [value]="'ADMIN'">Administrador</option>
+        <option [value]="'TECNICO'">Técnico</option>
+        <option [value]="'FINANCEIRO'">Financeiro</option>
+        <option [value]="'FORNECEDOR'">Fornecedor</option>
+        <option [value]="'CLIENTE_EMPRESA'">Cliente empresa</option>
+        <option [value]="'CLIENTE_PF'">Cliente Fisico</option>
+        </select>
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+    <!-- Botões de ação -->
+    <div style="margin-top: 20px;">
+      <!-- Botão Salvar: desabilitado se formulário é inválido -->
+      <p-button label="Salvar" type="submit" [disabled]="formPessoa.invalid" class="btn-save">
+            </p-button>
+      
+      <!-- Botão Cancelar: emite evento para fechar o modal -->
+      <button pButton type="button" label="Cancelar" 
+        class="p-button-secondary" (click)="fecharModal.emit()" 
+        style="margin-left: 10px;"></button>
+    </div>
+
+  </form>
+</div>
