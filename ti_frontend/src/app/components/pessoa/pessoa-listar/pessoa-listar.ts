@@ -61,7 +61,35 @@ export class PessoaListar {
         });
   }
 
+// Adicione estes métodos dentro da sua classe
 
+  formatarCpfCnpj(valor: string | undefined): string {
+    if (!valor) return '';
+    const apenasNumeros = valor.replace(/\D/g, '');
+
+    if (apenasNumeros.length === 11) {
+      // Formata CPF: 000.000.000-00
+      return apenasNumeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    } else if (apenasNumeros.length === 14) {
+      // Formata CNPJ: 00.000.000/0000-00
+      return apenasNumeros.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+    return valor; // Se não tiver 11 nem 14, retorna o original
+  }
+
+  formatarTelefone(valor: string | undefined): string {
+    if (!valor) return '';
+    const apenasNumeros = valor.replace(/\D/g, '');
+
+    if (apenasNumeros.length === 11) {
+      // Formata Celular: (99) 99999-9999
+      return apenasNumeros.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (apenasNumeros.length === 10) {
+      // Formata Fixo: (99) 9999-9999
+      return apenasNumeros.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return valor;
+  }
 
   buscarPessoas(): void {
     this.carregando.set(true);

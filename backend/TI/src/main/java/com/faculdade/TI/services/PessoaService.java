@@ -20,7 +20,7 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
 
-    public Pessoa salvarPessoa (Pessoa pessoa){return pessoaRepository.save(pessoa);}
+    public Pessoa salvarPessoa (Pessoa pessoa){limparDados(pessoa); return pessoaRepository.save(pessoa);}
 
 
     public Pessoa buscarPessoaporId (Long id){
@@ -30,12 +30,24 @@ public class PessoaService {
     public void deletarPessoaPorId (Long id) { pessoaRepository.deleteById(id);}
 
     public Pessoa atualizarPessoaPorId(Long id, Pessoa pessoaAtualizada) {
-
+        limparDados(pessoaAtualizada);
+        
         Pessoa pessoaExistente = buscarPessoaporId(id);
 
         BeanUtils.copyProperties(pessoaAtualizada, pessoaExistente, "id");
 
         return pessoaRepository.save(pessoaExistente);
+    }
+
+    private void limparDados(Pessoa pessoa) {
+        if (pessoa.getCpf() != null) {
+            // Remove tudo que NÃO for número
+            pessoa.setCpf(pessoa.getCpf().replaceAll("\\D", ""));
+        }
+        if (pessoa.getTelefone() != null) {
+            // Remove tudo que NÃO for número
+            pessoa.setTelefone(pessoa.getTelefone().replaceAll("\\D", ""));
+        }
     }
 
 }

@@ -13,19 +13,29 @@
 
     <!-- Campo CPF/CNPJ -->
     <div class="field col-12" style="margin-bottom: 10px;">
-      <label for="cpf">CPF/CNPJ</label>
-      <!-- formControlName vincula o input ao controle do FormGroup -->
-      <input pInputText id="cpf" formControlName="cpf" 
-        placeholder="Ex: 123.456.789-00" [style]="{ width: '100%' }" />
-    </div>
+  <label for="cpf">CPF/CNPJ</label>
+  <input 
+    pInputText 
+    id="cpf" 
+    formControlName="cpf" 
+    placeholder="000.000.000-00 ou 00.000.000/0000-00" 
+    (input)="formatarCpfCnpj($event)"
+    maxlength="18" 
+    [style]="{ width: '100%' }" />
+</div>
 
     <!-- Campo Telefone -->
     <div class="field col-12" style="margin-bottom: 10px;">
-      <label for="telefone">Telefone</label>
-      <!-- formControlName vincula o input ao controle do FormGroup -->
-      <input pInputText id="telefone" formControlName="telefone" 
-        placeholder="Ex: (11) 91234-5678" [style]="{ width: '100%' }" />
-    </div>
+  <label for="telefone">Telefone</label>
+  <p-inputMask 
+    id="telefone" 
+    formControlName="telefone" 
+    mask="(99) 99999-9999" 
+    placeholder="(99) 99999-9999"
+    [style]="{ width: '100%' }">
+  </p-inputMask>
+</div>
+
 
     <!-- Campo Endereço -->
     <div class="field col-12" style="margin-bottom: 10px;">

@@ -57,7 +57,7 @@
       </div>-->
 
 
-      <div class="col-6">
+      <div class="col-6" *ngIf="formOS.get('id')?.value">
   <label for="produto" class="form-label">Produto</label>
   <div class="input-group" >
     <select

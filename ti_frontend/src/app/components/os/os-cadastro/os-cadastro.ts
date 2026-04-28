@@ -1,6 +1,5 @@
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter'; 
 import { RippleModule } from 'primeng/ripple';
@@ -13,7 +12,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ProdutoService } from '../../produto/produto-services';
 import { Produto } from '../../produto/models/model';
-import { Dialog } from "primeng/dialog";
 
 @Component({
   selector: 'app-os-cadastro',
@@ -27,7 +25,6 @@ import { Dialog } from "primeng/dialog";
     InputNumberModule,
     FormsModule,
     DatePickerModule,
-    Dialog
 ],
   standalone: true,
   templateUrl: './os-cadastro.html',
@@ -53,7 +50,6 @@ export class OSCadastro implements OnInit, OnChanges {
   private osService = inject(OSService);
   private messageService = inject(MessageService);
   private produtoService = inject(ProdutoService);
-  constructor(private router: Router) {}  
   listarProdutos: any[] = [];
   produtos: any;
   produtoSelecionado: any = null;

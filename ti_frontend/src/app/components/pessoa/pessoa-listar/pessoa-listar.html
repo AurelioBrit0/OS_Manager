@@ -68,8 +68,8 @@
           <tr>
             <td>{{ pessoa.id }}</td>
             <td>{{ pessoa.nome }}</td>
-            <td>{{ pessoa.cpf || pessoa.cnpj }}</td>
-            <td>{{ pessoa.telefone }}</td>
+            <td>{{ formatarCpfCnpj(pessoa.cpf) }}</td>
+            <td>{{ formatarTelefone(pessoa.telefone) }}</td>
             <td>{{ pessoa.endereco }}</td>
             <td>{{ pessoa.funcao }}</td>
             <td class="h-auto w-auto text-center ">

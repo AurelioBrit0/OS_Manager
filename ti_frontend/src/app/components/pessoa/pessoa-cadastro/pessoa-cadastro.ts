@@ -8,6 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { PessoaService } from '../pessoa-services';
+import { InputMaskModule } from 'primeng/inputmask';
+
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -17,7 +19,8 @@ import { PessoaService } from '../pessoa-services';
     KeyFilterModule, 
     RippleModule, 
     ReactiveFormsModule,
-    FormsModule],
+    FormsModule,
+  InputMaskModule],
   templateUrl: './pessoa-cadastro.html',
   styleUrl: './pessoa-cadastro.css',
 })
@@ -65,11 +68,10 @@ export class PessoaCadastro {
    */
   private inicializarFormulario() {
     this.formPessoa = this.fb.group({
-      id: [null],                                    // ID (será null para novo)
-      nome: ['', [Validators.required, Validators.minLength(1)]],  // Requerido, mín 1 caractere
-      cpf: ['',[Validators.required,Validators.minLength(11),Validators.maxLength(12)]],
-     // cnpj: ['',[Validators.required,Validators.minLength(14),Validators.maxLength(14)]],
-      telefone: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+      id: [null],                                    
+      nome: ['', [Validators.required]], 
+      cpf: ['',[Validators.required,Validators.minLength(14),Validators.maxLength(18)]],
+      telefone: ['',[Validators.required,Validators.minLength(8)]],
       endereco: ['',[Validators.required]],
       funcao: [], 
     });
@@ -93,6 +95,34 @@ export class PessoaCadastro {
   }
   }
 
+formatarCpfCnpj(event: any) {
+  // 1. Remove tudo que não for número
+  let valor = event.target.value.replace(/\D/g, '');
+
+  // 2. Limita a 14 dígitos (tamanho máximo do CNPJ)
+  if (valor.length > 14) {
+    valor = valor.substring(0, 14);
+  }
+
+  // 3. Aplica a formatação dinamicamente
+  if (valor.length <= 11) {
+    // Máscara CPF: 000.000.000-00
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  } else {
+    // Máscara CNPJ: 00.000.000/0000-00
+    valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+    valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    valor = valor.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+  }
+
+  // 4. Atualiza o valor no formulário (sem disparar eventos infinitos)
+  this.formPessoa.get('cpf')?.setValue(valor, { emitEvent: false });
+}
+
+  
   /**
    * Envia novo cadastro para o servidor
    * @param p - Nova pessoa a ser salva
