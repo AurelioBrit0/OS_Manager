@@ -31,7 +31,7 @@ public class PessoaService {
 
     public Pessoa atualizarPessoaPorId(Long id, Pessoa pessoaAtualizada) {
         limparDados(pessoaAtualizada);
-        
+
         Pessoa pessoaExistente = buscarPessoaporId(id);
 
         BeanUtils.copyProperties(pessoaAtualizada, pessoaExistente, "id");

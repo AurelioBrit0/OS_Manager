@@ -91,20 +91,21 @@ export class PessoaListar {
     return valor;
   }
 
-  buscarPessoas(): void {
-    this.carregando.set(true);
+ buscarPessoas(): void {
+  this.carregando.set(true);
 
-    this.pessoaService.buscarPessoaPorId('localhost:8080/pessoa/buscar-pessoa/${id}').subscribe({
-      next: (dados) => {
-        this.pessoa.set(dados);
-        this.carregando.set(false);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar pessoas:', err);
-        this.carregando.set(false);
-      }
-    });
-  }
+  // CORREÇÃO: Chame o método listarPessoa() que devolve o array completo
+  this.pessoaService.listarPessoa().subscribe({
+    next: (dados) => {
+      this.pessoa.set(dados); // O Signal atualiza a tabela automaticamente
+      this.carregando.set(false);
+    },
+    error: (err) => {
+      console.error('Erro ao buscar pessoas:', err);
+      this.carregando.set(false);
+    }
+  });
+}
 
   abrirNovo(): void {
     this.pessoaSelecionada.set(null); // Limpa para garantir que é um novo cadastro
@@ -118,8 +119,15 @@ export class PessoaListar {
   }
 
   aoFecharModal(): void {
-    this.exibirModal.set(false);
-    this.buscarPessoas(); // Recarrega a lista para mostrar as mudanças
+    // 1. Fecha a janela
+  this.exibirModal.set(false);
+  
+  // 2. Limpa a seleção (para não abrir o próximo como edição por engano)
+  this.pessoaSelecionada.set(null);
+  
+  // 3. CHAMA A BUSCA AQUI! 
+  // Isso vai fazer o Angular buscar os dados novos e atualizar a tabela sem piscar a tela.
+  this.buscarPessoas(); 
   }
 
   excluirPessoa(pessoa: Pessoa): void {

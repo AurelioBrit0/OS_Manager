@@ -53,14 +53,44 @@ export class PessoaCadastro {
    * Cria o formulário e popula com dados se for edição
    */
   ngOnInit(): void {
-    this.inicializarFormulario();
+  // 1. Primeiro criamos o formulário
+  this.inicializarFormulario();
+  
+  // 2. Depois verificamos se já recebemos dados para edição
+  if (this.pessoaEdicao) {
+    this.preencherFormulario(this.pessoaEdicao);
   }
+}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pessoaEdicao'] && this.pessoaEdicao) {
-      this.formPessoa.patchValue(this.pessoaEdicao);
-    }
+ngOnChanges(changes: SimpleChanges): void {
+  // Se a pessoa mudar enquanto o componente está aberto, atualizamos
+  if (changes['pessoaEdicao'] && this.pessoaEdicao && this.formPessoa) {
+    this.preencherFormulario(this.pessoaEdicao);
   }
+}
+
+// Criamos uma função auxiliar para tratar os dados antes de jogar no form
+private preencherFormulario(dados: Pessoa) {
+  // Fazemos uma cópia para não alterar o objeto original
+  const dadosFormatados = { ...dados };
+
+  // Formatamos o CPF e Telefone para a máscara aparecer na edição
+  if (dadosFormatados.cpf) {
+    dadosFormatados.cpf = this.aplicarMascaraCpfCnpj(dadosFormatados.cpf);
+  }
+  
+  this.formPessoa.patchValue(dadosFormatados);
+}
+
+// Função auxiliar para formatar a string pura que vem do banco
+private aplicarMascaraCpfCnpj(valor: string): string {
+  valor = valor.replace(/\D/g, '');
+  if (valor.length <= 11) {
+    return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  } else {
+    return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+  }
+}
 
   /**
    * Cria o FormGroup com validações
@@ -146,12 +176,18 @@ formatarCpfCnpj(event: any) {
    * @param msg - Tipo de ação: "Cadastrada" ou "Editada"
    */
   private sucesso(msg: string) {
-  alert(`Pessoa ${msg} com sucesso!`);
+  this.messageService.add({ 
+    severity: 'success', 
+    summary: 'Sucesso', 
+    detail: `Pessoa ${msg} com sucesso!` 
+  });
 
-  // Sempre fecha o modal (se estiver sendo usado como modal)
-  this.fecharModal.emit();
-  this.inicializarFormulario();
-  window.location.reload();  
-  }
+  // Emite o evento para o pai (Listar) saber que terminou
+  this.fecharModal.emit(); 
+  
+  // Limpa o formulário para o próximo uso
+  this.formPessoa.reset(); 
+  
+}
 
 }

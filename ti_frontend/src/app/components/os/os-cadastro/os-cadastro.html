@@ -61,24 +61,39 @@
   <label for="produto" class="form-label">Produto</label>
   <div class="input-group" >
     <select
-      id="produto"
-      class="form-select custom-select"
-      [(ngModel)]="produtoSelecionado"
-      [ngModelOptions]="{ standalone: true }"
-      required
-    >
-      <option value="" disabled selected>Selecione um produto</option>
-
-      <option *ngFor="let m of listarProdutos" [ngValue]="m">
-        {{ m.nome }}
-      </option>
-
-    </select>
+  id="produto"
+  class="form-select custom-select"
+  formControlName="produto"
+  [compareWith]="compararObjetos" 
+>
+  <option [ngValue]="null" disabled selected>Selecione um produto</option>
+  <option *ngFor="let m of listarProdutos" [ngValue]="m">
+    {{ m.nome }}
+  </option>
+</select>
     
     
   </div>
 </div>
-      
+
+      <div class="col-6" style="margin-bottom: 10px;"  *ngIf="formOS.get('id')?.value">
+  <label for="pessoa" class="form-label">Pessoa</label>
+  <div class="input-group">
+    <select
+      id="pessoa"
+      class="form-select custom-select"
+      formControlName="pessoa"
+      [compareWith]="compararObjetos"
+    >
+      <option [ngValue]="null" disabled>Selecione uma pessoa</option>
+
+      <option *ngFor="let p of listarPessoas" [ngValue]="p">
+        {{ p.nome }}
+      </option>
+    </select>
+  </div>
+</div>
+     <div class="row"></div> 
 
       <div class="col-6" style="margin-bottom: 10px;" *ngIf="formOS.get('id')?.value">
         <label for="valor">Valor</label>

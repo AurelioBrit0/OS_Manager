@@ -12,6 +12,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ProdutoService } from '../../produto/produto-services';
 import { Produto } from '../../produto/models/model';
+import { PessoaService } from '../../pessoa/pessoa-services';
 
 @Component({
   selector: 'app-os-cadastro',
@@ -50,9 +51,12 @@ export class OSCadastro implements OnInit, OnChanges {
   private osService = inject(OSService);
   private messageService = inject(MessageService);
   private produtoService = inject(ProdutoService);
+  private pessoaService = inject(PessoaService);
   listarProdutos: any[] = [];
+  listarPessoas: any[] = [];
   produtos: any;
   produtoSelecionado: any = null;
+  pessoaSelecionada: any = null;
   ProdutosFiltrados: any[] = [];
   exibirModalProduto: boolean = false;
 
@@ -66,10 +70,11 @@ export class OSCadastro implements OnInit, OnChanges {
   ngOnInit(): void {
     this.inicializarFormulario();
     this.carregarProdutos();
+    this.carregarPessoas();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-     if (changes['osEdicao'] && this.osEdicao) {
+     if (changes['osEdicao'] && this.osEdicao && this.formOS) {
       const converterData = (data: string) => {
       if (!data) return null;
 
@@ -82,6 +87,12 @@ export class OSCadastro implements OnInit, OnChanges {
         dataAbertura: this.osEdicao.dataAbertura ? converterData(this.osEdicao.dataAbertura) : null,
         dataFechamento: this.osEdicao.dataFechamento ? converterData(this.osEdicao.dataFechamento) : null
       });
+
+      if (this.osEdicao.pessoa) {
+        this.pessoaSelecionada = this.listarPessoas.find(
+          p => p.id === this.osEdicao!.pessoa.id
+        );
+      }
     }
   }
 
@@ -93,6 +104,20 @@ export class OSCadastro implements OnInit, OnChanges {
       if (this.produtoEdicao?.marca) {
         this.produtoSelecionado = this.listarProdutos.find(
           m => m.id === this.osEdicao!.produto.id
+        );
+      }
+    }
+  });
+}
+
+  carregarPessoas(): void {
+  this.pessoaService.listarPessoa().subscribe({
+    next: (pessoas: any[]) => {
+      this.listarPessoas = pessoas;
+
+      if (this.osEdicao?.pessoa) {
+        this.pessoaSelecionada = this.listarPessoas.find(
+          p => p.id === this.osEdicao!.pessoa.id
         );
       }
     }
@@ -121,14 +146,17 @@ export class OSCadastro implements OnInit, OnChanges {
     titulo: ['', [Validators.required, Validators.minLength(3)]],
     descricao: ['', [Validators.required, Validators.minLength(5)]],
     comentario: [''],
-    // Removido o Validators.required daqui
     dataAbertura: [null], 
     dataFechamento: [null],
     status: ['NOVO'], 
     valor: [0, [Validators.required, Validators.min(0)]],
+    pessoa: [null],
+    produto: [null],
   });
 }
 
+
+  
   /**
    * Valida e submete o formulário
    * Decide se é criação ou atualização baseado se tem ID
@@ -194,4 +222,12 @@ export class OSCadastro implements OnInit, OnChanges {
       }
     });
   }
+
+
+  // Essa função ensina o Angular a comparar os objetos pelo ID
+compararObjetos(o1: any, o2: any): boolean {
+  return o1 && o2 ? o1.id === o2.id : o1 === o2;
+}
+
+
 }

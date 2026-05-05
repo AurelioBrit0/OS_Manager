@@ -27,7 +27,11 @@ public class Produtos {
     @JoinColumn(name = "marca_id")
     private Marca marca;
 
+    @Transient
     public double getValorTotal() {
+        if (this.quantidade == null) {
+            return 0.0;
+        }
         return this.valor * this.quantidade;
     }
 

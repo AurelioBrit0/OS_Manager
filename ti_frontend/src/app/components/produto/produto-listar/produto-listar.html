@@ -59,7 +59,8 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Quantidade</th>
-            <th>Valor</th>
+            <th>Valor Unt.</th>
+          <th>Total em Estoque</th>
             <th>Marca</th>
              <th>Descrição</th>
             <th class="text-center">Ações</th>
@@ -72,7 +73,10 @@
             <td>
               <p-badge [value]="product.quantidade | number" [severity]="stockSeverity(product)" />
             </td>
-            <td>{{ product.valor | currency:'BRL'}}</td>
+            <td>R$ {{ product.valor | number:'1.2-2' }}</td>
+            <td class="text-primary font-weight-bold">
+              R$ {{ (product.quantidade * product.valor) | number:'1.2-2' }}
+            </td>
             <td>{{ product.marca?.nome }}</td>
             <td>{{ product.descricao }}</td>
             <td class="h-auto w-auto text-center ">

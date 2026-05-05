@@ -128,9 +128,10 @@ export class OSListar {
    * Recarrega a lista de OS
    */
   aoFecharModal(): void {
-    this.exibirModal.set(false);
-    this.ngOnInit(); 
-  }
+  this.exibirModal.set(false);
+  this.osSelecionada.set(null); 
+  this.buscarOS(); 
+}
 
   /**
    * Solicita confirmação e deleta a OS
